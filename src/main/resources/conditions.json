@@ -1,0 +1,18 @@
+[
+  {
+  "userName":"the_xy2",
+  "nbTweets":10,
+  "startTime":"2021-01-12 15:30:22",
+  "endTime":"2022-01-12 15:30:22",
+  "sinceId":"1425425",
+  "untilId":"142542321"
+},
+  {
+    "userName":"the_xy2",
+    "nbTweets":20,
+    "startTime":"2022-01-12 15:30:22",
+    "endTime":"",
+    "sinceId":"",
+    "untilId":""
+  }
+]
