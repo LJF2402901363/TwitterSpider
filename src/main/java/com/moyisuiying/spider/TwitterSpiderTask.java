@@ -34,21 +34,19 @@ public class TwitterSpiderTask implements Runnable {
         if (this.usersList == null || this.usersList.size() == 0){
             return;
         }
-        while (true){
-            this.usersList.forEach(userTimelineCondition->{
-                String username = userTimelineCondition.getUserName();
-                int nbTweets = userTimelineCondition.getNbTweets();
-                String startTimeStr = userTimelineCondition.getStartTime();
-                LocalDateTime startTime = ConverterHelper.getDateFromTwitterDateV2(startTimeStr);
-                String endTimeStr = userTimelineCondition.getEndTime();
-                LocalDateTime endTime = ConverterHelper.getDateFromTwitterDateV2(endTimeStr);
-                String sinceId = userTimelineCondition.getSinceId();
-                String untilId = userTimelineCondition.getUntilId();
-                //从Twitter中爬取用户推文
-                List<TweetDto> userTimelineByUserName = this.spiderTwitterClient.getUserTimelineByUserName(username,nbTweets,startTime,endTime,sinceId,untilId);
-                //将爬取到的数据发送到kafka保存
-                twitterProducer.sendTwitterToKafka(userTimelineByUserName);
-            });
-        }
+        this.usersList.forEach(userTimelineCondition->{
+            String username = userTimelineCondition.getUserName();
+            int nbTweets = userTimelineCondition.getNbTweets();
+            String startTimeStr = userTimelineCondition.getStartTime();
+            LocalDateTime startTime = ConverterHelper.getDateFromTwitterDateV2(startTimeStr);
+            String endTimeStr = userTimelineCondition.getEndTime();
+            LocalDateTime endTime = ConverterHelper.getDateFromTwitterDateV2(endTimeStr);
+            String sinceId = userTimelineCondition.getSinceId();
+            String untilId = userTimelineCondition.getUntilId();
+            //从Twitter中爬取用户推文
+            List<TweetDto> userTimelineByUserName = this.spiderTwitterClient.getUserTimelineByUserName(username,nbTweets,startTime,endTime,sinceId,untilId);
+            //将爬取到的数据发送到kafka保存
+            twitterProducer.sendTwitterToKafka(userTimelineByUserName);
+        });
     }
 }
